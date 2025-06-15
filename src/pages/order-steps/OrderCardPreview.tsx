@@ -18,7 +18,7 @@ const OrderCardPreview = ({
   getAccentColor,
   previewRef,
 }: OrderCardPreviewProps) => (
-  <AspectRatio ratio={4 / 7} className="w-full max-w-[420px] mx-auto">
+  <AspectRatio ratio={7 / 4} className="w-full max-w-[420px] mx-auto">
     <div ref={previewRef} className="w-full h-full rounded-xl overflow-hidden">
       <div
         className={`${getCardBackground()} ${getTextColor()} p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300 relative overflow-hidden w-full h-full`}
