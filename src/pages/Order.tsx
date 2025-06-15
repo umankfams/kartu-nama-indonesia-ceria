@@ -20,6 +20,18 @@ import {
   jumlahOptions
 } from "@/utils/Options";
 
+import DraggableOrderCardPreview from "./order-steps/DraggableOrderCardPreview";
+
+const DEFAULT_ELEMENT_POSITIONS = {
+  name: { x: 30, y: 24 },
+  jabatan: { x: 32, y: 64 },
+  perusahaan: { x: 32, y: 96 },
+  logo: { x: 338, y: 24 },
+  telepon: { x: 32, y: 146 },
+  email: { x: 32, y: 172 },
+  alamat: { x: 32, y: 196 }
+};
+
 const Order = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -56,6 +68,20 @@ const Order = () => {
 
   // Ref for downloading preview
   const previewRef = useRef<HTMLDivElement>(null);
+
+  // New: track whether in layout editing mode
+  const [editLayout, setEditLayout] = useState(false);
+
+  // Add draggable positions to formData, or default if not present
+  const [elementPositions, setElementPositions] = useState(() =>
+    formData.elementPositions || { ...DEFAULT_ELEMENT_POSITIONS }
+  );
+
+  // Keep elementPositions in sync with formData if needed
+  const handleUpdatePositions = (newPositions: typeof elementPositions) => {
+    setElementPositions(newPositions);
+    setFormData(prev => ({ ...prev, elementPositions: newPositions }));
+  };
 
   const handleDownloadPreview = async () => {
     if (!previewRef.current) return;
@@ -212,28 +238,48 @@ const Order = () => {
       <form onSubmit={handleSubmit}>
         <div className="container mx-auto px-4 pb-16 pt-2">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-            {/* Preview Card + Download */}
+            {/* Preview Card + Download/Toggle */}
             <div className="space-y-6">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
                   Preview Kartu Nama Anda
                 </h2>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={handleDownloadPreview}
-                  type="button"
-                >
-                  <Download className="w-4 h-4" /> Unduh JPG
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant={editLayout ? "outline" : "secondary"}
+                    size="sm"
+                    onClick={() => setEditLayout(e => !e)}
+                  >
+                    {editLayout ? "Selesai Edit Layout" : "Edit Layout"}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={handleDownloadPreview}
+                    type="button"
+                    disabled={editLayout}
+                    title={editLayout ? "Selesai edit layout dulu untuk unduh" : ""}
+                  >
+                    <Download className="w-4 h-4" /> Unduh JPG
+                  </Button>
+                </div>
               </div>
-              <OrderCardPreview
+              <DraggableOrderCardPreview
                 formData={formData}
+                elementPositions={elementPositions}
+                onUpdatePositions={handleUpdatePositions}
                 getCardBackground={getCardBackground}
                 getTextColor={getTextColor}
                 getAccentColor={getAccentColor}
                 previewRef={previewRef}
+                editable={editLayout}
               />
+              {editLayout && (
+                <p className="text-xs text-blue-600 text-center mt-1">
+                  Seret setiap elemen di kartu nama untuk mengatur posisinya. Klik "Selesai Edit Layout" bila sudah pas.
+                </p>
+              )}
             </div>
 
             {/* Steps form area */}
