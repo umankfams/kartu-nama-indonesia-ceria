@@ -74,7 +74,6 @@ const OrderCardPreview = ({
                   className="w-12 h-12 object-contain rounded"
                 />
               )}
-              <CreditCard className={`w-8 h-8 ${getAccentColor()}`} />
             </div>
           </div>
 
