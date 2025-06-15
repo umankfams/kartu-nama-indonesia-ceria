@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Upload, Image } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ColorPopover from "@/components/ColorPopover";
 
 const FONT_OPTIONS = [
   { label: "Inter", value: "font-sans" },
@@ -83,86 +84,71 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
       {/* Nama */}
       <div>
         <Label htmlFor="fontNama">Font Nama</Label>
-        <Select 
-          value={formData.fontNama || "font-sans"} 
-          onValueChange={v => handleInputChange("fontNama", v)}>
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {FONT_OPTIONS.map(opt => (
-              <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Label htmlFor="fontNamaColor" className="mt-2 block">Warna Nama</Label>
-        <select
-          id="fontNamaColor"
-          className="w-full h-10 px-3 py-2 rounded border border-input mt-1"
-          value={formData.fontNamaColor || "#18181b"}
-          onChange={e => handleInputChange("fontNamaColor", e.target.value)}
-          style={{ background: formData.fontNamaColor || "#fff" }}
-        >
-          {FONT_COLOR_OPTIONS.map(opt => (
-            <option key={opt.value} value={opt.value} style={{ color: opt.value }}>{opt.label}</option>
-          ))}
-        </select>
+        <div className="flex items-center">
+          <Select 
+            value={formData.fontNama || "font-sans"} 
+            onValueChange={v => handleInputChange("fontNama", v)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {FONT_OPTIONS.map(opt => (
+                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <ColorPopover
+            value={formData.fontNamaColor || "#18181b"}
+            onChange={color => handleInputChange("fontNamaColor", color)}
+            ariaLabel="Pilih warna nama"
+          />
+        </div>
       </div>
       {/* Jabatan */}
       <div>
         <Label htmlFor="fontJabatan">Font Jabatan</Label>
-        <Select 
-          value={formData.fontJabatan || "font-sans"} 
-          onValueChange={v => handleInputChange("fontJabatan", v)}>
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {FONT_OPTIONS.map(opt => (
-              <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Label htmlFor="fontJabatanColor" className="mt-2 block">Warna Jabatan</Label>
-        <select
-          id="fontJabatanColor"
-          className="w-full h-10 px-3 py-2 rounded border border-input mt-1"
-          value={formData.fontJabatanColor || "#2563eb"}
-          onChange={e => handleInputChange("fontJabatanColor", e.target.value)}
-          style={{ background: formData.fontJabatanColor || "#fff" }}
-        >
-          {FONT_COLOR_OPTIONS.map(opt => (
-            <option key={opt.value} value={opt.value} style={{ color: opt.value }}>{opt.label}</option>
-          ))}
-        </select>
+        <div className="flex items-center">
+          <Select 
+            value={formData.fontJabatan || "font-sans"} 
+            onValueChange={v => handleInputChange("fontJabatan", v)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {FONT_OPTIONS.map(opt => (
+                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <ColorPopover
+            value={formData.fontJabatanColor || "#2563eb"}
+            onChange={color => handleInputChange("fontJabatanColor", color)}
+            ariaLabel="Pilih warna jabatan"
+          />
+        </div>
       </div>
       {/* Perusahaan */}
       <div>
         <Label htmlFor="fontPerusahaan">Font Perusahaan</Label>
-        <Select 
-          value={formData.fontPerusahaan || "font-sans"} 
-          onValueChange={v => handleInputChange("fontPerusahaan", v)}>
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {FONT_OPTIONS.map(opt => (
-              <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Label htmlFor="fontPerusahaanColor" className="mt-2 block">Warna Perusahaan</Label>
-        <select
-          id="fontPerusahaanColor"
-          className="w-full h-10 px-3 py-2 rounded border border-input mt-1"
-          value={formData.fontPerusahaanColor || "#374151"}
-          onChange={e => handleInputChange("fontPerusahaanColor", e.target.value)}
-          style={{ background: formData.fontPerusahaanColor || "#fff" }}
-        >
-          {FONT_COLOR_OPTIONS.map(opt => (
-            <option key={opt.value} value={opt.value} style={{ color: opt.value }}>{opt.label}</option>
-          ))}
-        </select>
+        <div className="flex items-center">
+          <Select 
+            value={formData.fontPerusahaan || "font-sans"} 
+            onValueChange={v => handleInputChange("fontPerusahaan", v)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {FONT_OPTIONS.map(opt => (
+                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <ColorPopover
+            value={formData.fontPerusahaanColor || "#374151"}
+            onChange={color => handleInputChange("fontPerusahaanColor", color)}
+            ariaLabel="Pilih warna perusahaan"
+          />
+        </div>
       </div>
     </div>
 
