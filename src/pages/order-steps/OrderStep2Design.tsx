@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -149,6 +150,30 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
             ariaLabel="Pilih warna perusahaan"
           />
         </div>
+      </div>
+    </div>
+
+    {/* Picker untuk Kontak */}
+    <div className="mt-6">
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        Font & Warna Info Kontak
+      </label>
+      <div className="flex items-center gap-2">
+        <select
+          className="border rounded px-2 py-1 text-sm"
+          value={formData.fontKontak || "font-sans"}
+          onChange={e => handleInputChange("fontKontak", e.target.value)}
+        >
+          {FONT_OPTIONS.map(opt => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+        <ColorPopover
+          value={formData.fontKontakColor || "#111111"}
+          onChange={color => handleInputChange("fontKontakColor", color)}
+          ariaLabel="Pilih warna info kontak"
+        />
+        <span className="text-xs text-gray-500 ml-2">Untuk telp, email, & alamat</span>
       </div>
     </div>
 

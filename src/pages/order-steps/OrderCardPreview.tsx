@@ -1,4 +1,3 @@
-
 import React from "react";
 import { CreditCard, Phone, Mail, MapPin } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -81,16 +80,44 @@ const OrderCardPreview = ({
 
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
-              <Phone className={`w-4 h-4 ${getAccentColor()}`} />
-              <span>{formData.telepon || "+62 xxx-xxxx-xxxx"}</span>
+              <Phone
+                className={`w-4 h-4`}
+                style={{
+                  color: formData.fontKontakColor || "#111111"
+                }}
+              />
+              <span
+                className={`${formData.fontKontak || "font-sans"}`}
+                style={{ color: formData.fontKontakColor || "#111111" }}
+              >
+                {formData.telepon || "+62 xxx-xxxx-xxxx"}
+              </span>
             </div>
             <div className="flex items-center gap-2">
-              <Mail className={`w-4 h-4 ${getAccentColor()}`} />
-              <span>{formData.email || "email@perusahaan.com"}</span>
+              <Mail
+                className={`w-4 h-4`}
+                style={{
+                  color: formData.fontKontakColor || "#111111"
+                }}
+              />
+              <span
+                className={`${formData.fontKontak || "font-sans"}`}
+                style={{ color: formData.fontKontakColor || "#111111" }}
+              >
+                {formData.email || "email@perusahaan.com"}
+              </span>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className={`w-4 h-4 ${getAccentColor()}`} />
-              <span className="text-xs leading-relaxed">
+              <MapPin
+                className={`w-4 h-4`}
+                style={{
+                  color: formData.fontKontakColor || "#111111"
+                }}
+              />
+              <span
+                className={`text-xs leading-relaxed ${formData.fontKontak || "font-sans"}`}
+                style={{ color: formData.fontKontakColor || "#111111" }}
+              >
                 {formData.alamat || "Alamat Perusahaan"}
               </span>
             </div>

@@ -36,6 +36,8 @@ const Order = () => {
     fontJabatanColor: "#2563eb",
     fontPerusahaan: "font-sans",
     fontPerusahaanColor: "#374151",
+    fontKontak: "font-sans",
+    fontKontakColor: "#111111",
     shippingName: "",
     shippingPhone: "",
     shippingAddress: "",
