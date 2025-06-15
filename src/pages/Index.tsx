@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { CreditCard, Phone, Mail, MapPin, Star, Package, Truck, Shield } from "lucide-react";
+import { CreditCard, Phone, Mail, MapPin, Star, Package, Truck, Shield, Image } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -22,7 +22,8 @@ const Index = () => {
     website: "",
     bahan: "",
     finishing: "",
-    jumlah: ""
+    jumlah: "",
+    background: ""
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -52,12 +53,56 @@ const Index = () => {
     { value: "emboss", label: "Emboss", price: "+Rp 150.000" }
   ];
 
+  const backgroundOptions = [
+    { value: "solid-dark", label: "Solid Dark", description: "Hitam klasik profesional" },
+    { value: "gradient-blue", label: "Gradient Biru", description: "Gradasi biru modern" },
+    { value: "gradient-purple", label: "Gradient Ungu", description: "Gradasi ungu elegan" },
+    { value: "minimal-white", label: "Minimal Putih", description: "Putih bersih minimalis" },
+    { value: "geometric", label: "Pola Geometris", description: "Pola geometris modern" },
+    { value: "texture-paper", label: "Tekstur Kertas", description: "Tekstur kertas alami" }
+  ];
+
   const jumlahOptions = [
     { value: "500", label: "500 pcs", multiplier: 1 },
     { value: "1000", label: "1000 pcs", multiplier: 1.8 },
     { value: "2000", label: "2000 pcs", multiplier: 3.2 },
     { value: "5000", label: "5000 pcs", multiplier: 7.5 }
   ];
+
+  const getCardBackground = () => {
+    switch (formData.background) {
+      case "gradient-blue":
+        return "bg-gradient-to-br from-blue-600 to-blue-800";
+      case "gradient-purple":
+        return "bg-gradient-to-br from-purple-600 to-purple-800";
+      case "minimal-white":
+        return "bg-white border-2 border-gray-200 text-gray-900";
+      case "geometric":
+        return "bg-gradient-to-br from-indigo-600 to-purple-600 relative overflow-hidden";
+      case "texture-paper":
+        return "bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200 text-gray-800";
+      case "solid-dark":
+      default:
+        return "bg-gradient-to-br from-gray-900 to-gray-700";
+    }
+  };
+
+  const getTextColor = () => {
+    if (formData.background === "minimal-white" || formData.background === "texture-paper") {
+      return "text-gray-900";
+    }
+    return "text-white";
+  };
+
+  const getAccentColor = () => {
+    if (formData.background === "minimal-white") {
+      return "text-blue-600";
+    }
+    if (formData.background === "texture-paper") {
+      return "text-amber-600";
+    }
+    return "text-blue-300";
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -104,34 +149,41 @@ const Index = () => {
               </p>
             </div>
             
-            <Card className="bg-gradient-to-br from-gray-900 to-gray-700 text-white p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
-              <div className="space-y-4">
+            <Card className={`${getCardBackground()} ${getTextColor()} p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300`}>
+              {formData.background === "geometric" && (
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-4 right-4 w-20 h-20 border border-white/30 rotate-45"></div>
+                  <div className="absolute bottom-4 left-4 w-16 h-16 border border-white/30 rotate-12"></div>
+                  <div className="absolute top-1/2 left-1/3 w-12 h-12 border border-white/30 -rotate-45"></div>
+                </div>
+              )}
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-2xl font-bold">
                       {formData.nama || "Nama Anda"}
                     </h3>
-                    <p className="text-blue-300 font-medium">
+                    <p className={`${getAccentColor()} font-medium`}>
                       {formData.jabatan || "Jabatan Anda"}
                     </p>
-                    <p className="text-gray-300 text-sm mt-1">
+                    <p className="text-sm mt-1 opacity-80">
                       {formData.perusahaan || "Nama Perusahaan"}
                     </p>
                   </div>
-                  <CreditCard className="w-8 h-8 text-blue-300" />
+                  <CreditCard className={`w-8 h-8 ${getAccentColor()}`} />
                 </div>
                 
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-blue-300" />
+                    <Phone className={`w-4 h-4 ${getAccentColor()}`} />
                     <span>{formData.telepon || "+62 xxx-xxxx-xxxx"}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-blue-300" />
+                    <Mail className={`w-4 h-4 ${getAccentColor()}`} />
                     <span>{formData.email || "email@perusahaan.com"}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-blue-300" />
+                    <MapPin className={`w-4 h-4 ${getAccentColor()}`} />
                     <span className="text-xs leading-relaxed">
                       {formData.alamat || "Alamat Perusahaan"}
                     </span>
@@ -272,6 +324,31 @@ const Index = () => {
                   <h3 className="font-semibold text-gray-900 border-b pb-2">
                     Spesifikasi Kartu
                   </h3>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="background">Pilih Latar Belakang</Label>
+                    <Select
+                      value={formData.background}
+                      onValueChange={(value) => handleInputChange("background", value)}
+                    >
+                      <SelectTrigger className="border-gray-300 focus:border-blue-500">
+                        <SelectValue placeholder="Pilih latar belakang kartu" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white border border-gray-200 shadow-lg">
+                        {backgroundOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            <div className="flex items-center gap-3">
+                              <Image className="w-4 h-4 text-gray-500" />
+                              <div>
+                                <span className="font-medium">{option.label}</span>
+                                <p className="text-xs text-gray-500">{option.description}</p>
+                              </div>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="bahan">Pilih Bahan *</Label>
