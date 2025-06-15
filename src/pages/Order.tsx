@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,6 +30,9 @@ const Order = () => {
     background: "",
     customBackground: "",
     logo: "",
+    fontNama: "font-sans",
+    fontJabatan: "font-sans",
+    fontPerusahaan: "font-sans",
     shippingName: "",
     shippingPhone: "",
     shippingAddress: "",

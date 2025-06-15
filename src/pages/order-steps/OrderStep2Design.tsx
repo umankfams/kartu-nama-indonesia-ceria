@@ -5,6 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Upload, Image } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+const FONT_OPTIONS = [
+  { label: "Inter", value: "font-sans" },
+  { label: "Playfair Display", value: "font-playfair" },
+  { label: "Montserrat", value: "font-montserrat" },
+  { label: "Roboto", value: "font-roboto" },
+  { label: "Lato", value: "font-lato" },
+];
+
 type StepProps = {
   formData: any;
   handleInputChange: (field: string, value: string) => void;
@@ -58,6 +66,56 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
         </p>
       </div>
     )}
+
+    {/* Font pickers for each item */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <Label htmlFor="fontNama">Font Nama</Label>
+        <Select 
+          value={formData.fontNama || "font-sans"} 
+          onValueChange={v => handleInputChange("fontNama", v)}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {FONT_OPTIONS.map(opt => (
+              <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <Label htmlFor="fontJabatan">Font Jabatan</Label>
+        <Select 
+          value={formData.fontJabatan || "font-sans"} 
+          onValueChange={v => handleInputChange("fontJabatan", v)}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {FONT_OPTIONS.map(opt => (
+              <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <Label htmlFor="fontPerusahaan">Font Perusahaan</Label>
+        <Select 
+          value={formData.fontPerusahaan || "font-sans"} 
+          onValueChange={v => handleInputChange("fontPerusahaan", v)}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {FONT_OPTIONS.map(opt => (
+              <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+
     <div className="space-y-2">
       <Label htmlFor="logo">Upload Logo Perusahaan (Opsional)</Label>
       <div className="flex items-center gap-2">
@@ -80,3 +138,4 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
 );
 
 export default OrderStep2Design;
+
