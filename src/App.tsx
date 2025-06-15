@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Order from "./pages/Order";
 import NotFound from "./pages/NotFound";
+import ManageBackgrounds from "./pages/ManageBackgrounds";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +19,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/order" element={<Order />} />
+          {/* Page for managing card backgrounds */}
+          <Route path="/manage-backgrounds" element={<ManageBackgrounds />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
