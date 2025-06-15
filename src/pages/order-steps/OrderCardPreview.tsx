@@ -48,11 +48,22 @@ const OrderCardPreview = ({
         <div className="space-y-4 relative z-10">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className={`text-2xl font-bold ${formData.fontNama || "font-sans"}`}>{formData.nama || "Nama Anda"}</h3>
-              <p className={`${getAccentColor()} font-medium ${formData.fontJabatan || "font-sans"}`}>
+              <h3
+                className={`text-2xl font-bold ${formData.fontNama || "font-sans"}`}
+                style={{ color: formData.fontNamaColor || "#18181b" }}
+              >
+                {formData.nama || "Nama Anda"}
+              </h3>
+              <p
+                className={`${getAccentColor()} font-medium ${formData.fontJabatan || "font-sans"}`}
+                style={{ color: formData.fontJabatanColor || "#2563eb" }}
+              >
                 {formData.jabatan || "Jabatan Anda"}
               </p>
-              <p className={`text-sm mt-1 opacity-80 ${formData.fontPerusahaan || "font-sans"}`}>
+              <p
+                className={`text-sm mt-1 opacity-80 ${formData.fontPerusahaan || "font-sans"}`}
+                style={{ color: formData.fontPerusahaanColor || "#374151" }}
+              >
                 {formData.perusahaan || "Nama Perusahaan"}
               </p>
             </div>
@@ -91,4 +102,3 @@ const OrderCardPreview = ({
 );
 
 export default OrderCardPreview;
-

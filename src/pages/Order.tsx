@@ -31,8 +31,11 @@ const Order = () => {
     customBackground: "",
     logo: "",
     fontNama: "font-sans",
+    fontNamaColor: "#18181b",
     fontJabatan: "font-sans",
+    fontJabatanColor: "#2563eb",
     fontPerusahaan: "font-sans",
+    fontPerusahaanColor: "#374151",
     shippingName: "",
     shippingPhone: "",
     shippingAddress: "",
@@ -91,15 +94,21 @@ const Order = () => {
   // Step management
   const stepComponents = [
     <OrderStep1Personal key="step1" formData={formData} handleInputChange={handleInputChange} />,
-    <OrderStep2Design key="step2" formData={formData} handleInputChange={handleInputChange} handleImageUpload={handleImageUpload} backgroundOptions={[
-      { value: "solid-dark", label: "Solid Dark", description: "Hitam klasik profesional" },
-      { value: "gradient-blue", label: "Gradient Biru", description: "Gradasi biru modern" },
-      { value: "gradient-purple", label: "Gradient Ungu", description: "Gradasi ungu elegan" },
-      { value: "minimal-white", label: "Minimal Putih", description: "Putih bersih minimalis" },
-      { value: "geometric", label: "Pola Geometris", description: "Pola geometris modern" },
-      { value: "texture-paper", label: "Tekstur Kertas", description: "Tekstur kertas alami" },
-      { value: "custom", label: "Upload Gambar", description: "Gunakan gambar sendiri" }
-    ]} />,
+    <OrderStep2Design 
+      key="step2" 
+      formData={formData}
+      handleInputChange={handleInputChange}
+      handleImageUpload={handleImageUpload}
+      backgroundOptions={[
+        { value: "solid-dark", label: "Solid Dark", description: "Hitam klasik profesional" },
+        { value: "gradient-blue", label: "Gradient Biru", description: "Gradasi biru modern" },
+        { value: "gradient-purple", label: "Gradient Ungu", description: "Gradasi ungu elegan" },
+        { value: "minimal-white", label: "Minimal Putih", description: "Putih bersih minimalis" },
+        { value: "geometric", label: "Pola Geometris", description: "Pola geometris modern" },
+        { value: "texture-paper", label: "Tekstur Kertas", description: "Tekstur kertas alami" },
+        { value: "custom", label: "Upload Gambar", description: "Gunakan gambar sendiri" }
+      ]}
+    />,
     <OrderStep3Specification
       key="step3"
       formData={formData}

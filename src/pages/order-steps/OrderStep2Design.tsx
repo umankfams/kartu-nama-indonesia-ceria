@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -11,6 +10,18 @@ const FONT_OPTIONS = [
   { label: "Montserrat", value: "font-montserrat" },
   { label: "Roboto", value: "font-roboto" },
   { label: "Lato", value: "font-lato" },
+];
+
+const FONT_COLOR_OPTIONS = [
+  { label: "Hitam", value: "#18181b" },
+  { label: "Putih", value: "#fff" },
+  { label: "Biru", value: "#2563eb" },
+  { label: "Ungu", value: "#7c3aed" },
+  { label: "Abu", value: "#374151" },
+  { label: "Amber", value: "#ca8a04" },
+  { label: "Coklat", value: "#713f12" },
+  { label: "Orange", value: "#ea580c" },
+  { label: "Pink", value: "#db2777" },
 ];
 
 type StepProps = {
@@ -69,6 +80,7 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
 
     {/* Font pickers for each item */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Nama */}
       <div>
         <Label htmlFor="fontNama">Font Nama</Label>
         <Select 
@@ -83,7 +95,20 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
             ))}
           </SelectContent>
         </Select>
+        <Label htmlFor="fontNamaColor" className="mt-2 block">Warna Nama</Label>
+        <select
+          id="fontNamaColor"
+          className="w-full h-10 px-3 py-2 rounded border border-input mt-1"
+          value={formData.fontNamaColor || "#18181b"}
+          onChange={e => handleInputChange("fontNamaColor", e.target.value)}
+          style={{ background: formData.fontNamaColor || "#fff" }}
+        >
+          {FONT_COLOR_OPTIONS.map(opt => (
+            <option key={opt.value} value={opt.value} style={{ color: opt.value }}>{opt.label}</option>
+          ))}
+        </select>
       </div>
+      {/* Jabatan */}
       <div>
         <Label htmlFor="fontJabatan">Font Jabatan</Label>
         <Select 
@@ -98,7 +123,20 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
             ))}
           </SelectContent>
         </Select>
+        <Label htmlFor="fontJabatanColor" className="mt-2 block">Warna Jabatan</Label>
+        <select
+          id="fontJabatanColor"
+          className="w-full h-10 px-3 py-2 rounded border border-input mt-1"
+          value={formData.fontJabatanColor || "#2563eb"}
+          onChange={e => handleInputChange("fontJabatanColor", e.target.value)}
+          style={{ background: formData.fontJabatanColor || "#fff" }}
+        >
+          {FONT_COLOR_OPTIONS.map(opt => (
+            <option key={opt.value} value={opt.value} style={{ color: opt.value }}>{opt.label}</option>
+          ))}
+        </select>
       </div>
+      {/* Perusahaan */}
       <div>
         <Label htmlFor="fontPerusahaan">Font Perusahaan</Label>
         <Select 
@@ -113,6 +151,18 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
             ))}
           </SelectContent>
         </Select>
+        <Label htmlFor="fontPerusahaanColor" className="mt-2 block">Warna Perusahaan</Label>
+        <select
+          id="fontPerusahaanColor"
+          className="w-full h-10 px-3 py-2 rounded border border-input mt-1"
+          value={formData.fontPerusahaanColor || "#374151"}
+          onChange={e => handleInputChange("fontPerusahaanColor", e.target.value)}
+          style={{ background: formData.fontPerusahaanColor || "#fff" }}
+        >
+          {FONT_COLOR_OPTIONS.map(opt => (
+            <option key={opt.value} value={opt.value} style={{ color: opt.value }}>{opt.label}</option>
+          ))}
+        </select>
       </div>
     </div>
 
@@ -138,4 +188,3 @@ const OrderStep2Design = ({ formData, handleInputChange, handleImageUpload, back
 );
 
 export default OrderStep2Design;
-
