@@ -36,7 +36,7 @@ const ColorPopover: React.FC<ColorPopoverProps> = ({ value, onChange, ariaLabel 
           value={value}
           onChange={e => {
             onChange(e.target.value);
-            setOpen(false);
+            // Tidak menutup popover di sini; cukup perbarui warna
           }}
           className="w-24 h-10 border-none p-0 bg-transparent cursor-pointer"
         />
