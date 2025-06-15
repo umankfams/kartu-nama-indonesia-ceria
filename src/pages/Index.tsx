@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { CreditCard, Phone, Mail, MapPin, Star, Package, Truck, Shield, Image } from "lucide-react";
+import { CreditCard, Phone, Mail, MapPin, Star, Package, Truck, Shield, Image, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -23,11 +22,23 @@ const Index = () => {
     bahan: "",
     finishing: "",
     jumlah: "",
-    background: ""
+    background: "",
+    customBackground: "",
+    logo: ""
   });
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleImageUpload = (field: string, file: File) => {
+    const url = URL.createObjectURL(file);
+    setFormData(prev => ({ ...prev, [field]: url }));
+    
+    toast({
+      title: "Gambar berhasil diunggah!",
+      description: `${field === 'customBackground' ? 'Latar belakang' : 'Logo'} telah ditambahkan ke kartu nama Anda.`,
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -59,7 +70,8 @@ const Index = () => {
     { value: "gradient-purple", label: "Gradient Ungu", description: "Gradasi ungu elegan" },
     { value: "minimal-white", label: "Minimal Putih", description: "Putih bersih minimalis" },
     { value: "geometric", label: "Pola Geometris", description: "Pola geometris modern" },
-    { value: "texture-paper", label: "Tekstur Kertas", description: "Tekstur kertas alami" }
+    { value: "texture-paper", label: "Tekstur Kertas", description: "Tekstur kertas alami" },
+    { value: "custom", label: "Upload Gambar", description: "Gunakan gambar sendiri" }
   ];
 
   const jumlahOptions = [
@@ -70,6 +82,10 @@ const Index = () => {
   ];
 
   const getCardBackground = () => {
+    if (formData.background === "custom" && formData.customBackground) {
+      return `bg-cover bg-center bg-no-repeat`;
+    }
+    
     switch (formData.background) {
       case "gradient-blue":
         return "bg-gradient-to-br from-blue-600 to-blue-800";
@@ -149,7 +165,20 @@ const Index = () => {
               </p>
             </div>
             
-            <Card className={`${getCardBackground()} ${getTextColor()} p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300`}>
+            <Card 
+              className={`${getCardBackground()} ${getTextColor()} p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300 relative overflow-hidden`}
+              style={formData.background === "custom" && formData.customBackground ? {
+                backgroundImage: `url(${formData.customBackground})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              } : {}}
+            >
+              {/* Custom background overlay for better text readability */}
+              {formData.background === "custom" && formData.customBackground && (
+                <div className="absolute inset-0 bg-black/40 z-0"></div>
+              )}
+              
               {formData.background === "geometric" && (
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-4 right-4 w-20 h-20 border border-white/30 rotate-45"></div>
@@ -157,6 +186,7 @@ const Index = () => {
                   <div className="absolute top-1/2 left-1/3 w-12 h-12 border border-white/30 -rotate-45"></div>
                 </div>
               )}
+              
               <div className="space-y-4 relative z-10">
                 <div className="flex items-start justify-between">
                   <div>
@@ -170,7 +200,16 @@ const Index = () => {
                       {formData.perusahaan || "Nama Perusahaan"}
                     </p>
                   </div>
-                  <CreditCard className={`w-8 h-8 ${getAccentColor()}`} />
+                  <div className="flex items-center gap-2">
+                    {formData.logo && (
+                      <img 
+                        src={formData.logo} 
+                        alt="Logo" 
+                        className="w-12 h-12 object-contain rounded"
+                      />
+                    )}
+                    <CreditCard className={`w-8 h-8 ${getAccentColor()}`} />
+                  </div>
                 </div>
                 
                 <div className="space-y-2 text-sm">
@@ -319,10 +358,10 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Specifications */}
+                {/* Design Options */}
                 <div className="space-y-4">
                   <h3 className="font-semibold text-gray-900 border-b pb-2">
-                    Spesifikasi Kartu
+                    Desain Kartu
                   </h3>
 
                   <div className="space-y-2">
@@ -349,6 +388,59 @@ const Index = () => {
                       </SelectContent>
                     </Select>
                   </div>
+
+                  {formData.background === "custom" && (
+                    <div className="space-y-2">
+                      <Label htmlFor="customBackground">Upload Gambar Latar Belakang</Label>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          id="customBackground"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              handleImageUpload("customBackground", file);
+                            }
+                          }}
+                          className="border-gray-300 focus:border-blue-500"
+                        />
+                        <Upload className="w-5 h-5 text-gray-500" />
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        Format: JPG, PNG. Ukuran maksimal: 5MB. Resolusi direkomendasikan: 1050x600px
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    <Label htmlFor="logo">Upload Logo Perusahaan (Opsional)</Label>
+                    <div className="flex items-center gap-2">
+                      <Input
+                        id="logo"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            handleImageUpload("logo", file);
+                          }
+                        }}
+                        className="border-gray-300 focus:border-blue-500"
+                      />
+                      <Upload className="w-5 h-5 text-gray-500" />
+                    </div>
+                    <p className="text-xs text-gray-500">
+                      Format: PNG (dengan background transparan direkomendasikan), JPG. Ukuran maksimal: 2MB
+                    </p>
+                  </div>
+                </div>
+
+                {/* Specifications */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-gray-900 border-b pb-2">
+                    Spesifikasi Kartu
+                  </h3>
 
                   <div className="space-y-2">
                     <Label htmlFor="bahan">Pilih Bahan *</Label>
