@@ -1,3 +1,4 @@
+
 import { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,10 +14,12 @@ import OrderStep3Specification from "./order-steps/OrderStep3Specification";
 import OrderStep4Shipping from "./order-steps/OrderStep4Shipping";
 import OrderStep5Payment from "./order-steps/OrderStep5Payment";
 
-import backgroundOptions from "@/utils/backgroundOptions";
-import bahanOptions from "@/utils/bahanOptions";
-import finishingOptions from "@/utils/finishingOptions";
-import jumlahOptions from "@/utils/jumlahOptions";
+import {
+  backgroundOptions,
+  bahanOptions,
+  finishingOptions,
+  jumlahOptions
+} from "@/utils/backgroundOptions";
 
 const Order = () => {
   const navigate = useNavigate();
