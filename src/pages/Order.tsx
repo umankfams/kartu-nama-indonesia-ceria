@@ -61,7 +61,8 @@ const Order = () => {
     shippingPhone: "",
     shippingAddress: "",
     shippingNote: "",
-    paymentOption: ""
+    paymentOption: "",
+    elementPositions: { ...DEFAULT_ELEMENT_POSITIONS }
   });
 
   const [currentStep, setCurrentStep] = useState(0);
