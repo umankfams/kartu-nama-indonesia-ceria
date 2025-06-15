@@ -1,12 +1,47 @@
 
 const backgroundOptions = [
-  { value: "solid-dark", label: "Solid Dark", description: "Hitam klasik profesional" },
-  { value: "gradient-blue", label: "Gradient Biru", description: "Gradasi biru modern" },
-  { value: "gradient-purple", label: "Gradient Ungu", description: "Gradasi ungu elegan" },
-  { value: "minimal-white", label: "Minimal Putih", description: "Putih bersih minimalis" },
-  { value: "geometric", label: "Pola Geometris", description: "Pola geometris modern" },
-  { value: "texture-paper", label: "Tekstur Kertas", description: "Tekstur kertas alami" },
-  { value: "custom", label: "Upload Gambar", description: "Gunakan gambar sendiri" }
+  {
+    value: "solid-dark",
+    label: "Solid Dark",
+    description: "Hitam klasik profesional",
+    className: "bg-gradient-to-br from-gray-900 to-gray-700"
+  },
+  {
+    value: "gradient-blue",
+    label: "Gradient Biru",
+    description: "Gradasi biru modern",
+    className: "bg-gradient-to-br from-blue-600 to-blue-800"
+  },
+  {
+    value: "gradient-purple",
+    label: "Gradient Ungu",
+    description: "Gradasi ungu elegan",
+    className: "bg-gradient-to-br from-purple-600 to-purple-800"
+  },
+  {
+    value: "minimal-white",
+    label: "Minimal Putih",
+    description: "Putih bersih minimalis",
+    className: "bg-white border-2 border-gray-200 text-gray-900"
+  },
+  {
+    value: "geometric",
+    label: "Pola Geometris",
+    description: "Pola geometris modern",
+    className: "bg-gradient-to-br from-indigo-600 to-purple-600 relative overflow-hidden"
+  },
+  {
+    value: "texture-paper",
+    label: "Tekstur Kertas",
+    description: "Tekstur kertas alami",
+    className: "bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200 text-gray-800"
+  },
+  {
+    value: "custom",
+    label: "Upload Gambar",
+    description: "Gunakan gambar sendiri",
+    className: "bg-cover bg-center bg-no-repeat"
+  }
 ];
 
 const bahanOptions = [

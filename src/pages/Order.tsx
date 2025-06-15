@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -131,26 +130,19 @@ const Order = () => {
     "Opsi Pembayaran"
   ];
 
-  // Visual helpers (from previous code)
+  // Helper: get background className from backgroundOptions
   const getCardBackground = () => {
     if (formData.background === "custom" && formData.customBackground) {
-      return `bg-cover bg-center bg-no-repeat`;
+      // Tetap tambahkan overlay di card preview, tapi gunakan class dari backgroundOptions
+      return (
+        backgroundOptions.find(opt => opt.value === formData.background)?.className ||
+        backgroundOptions[0].className
+      );
     }
-    switch (formData.background) {
-      case "gradient-blue":
-        return "bg-gradient-to-br from-blue-600 to-blue-800";
-      case "gradient-purple":
-        return "bg-gradient-to-br from-purple-600 to-purple-800";
-      case "minimal-white":
-        return "bg-white border-2 border-gray-200 text-gray-900";
-      case "geometric":
-        return "bg-gradient-to-br from-indigo-600 to-purple-600 relative overflow-hidden";
-      case "texture-paper":
-        return "bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200 text-gray-800";
-      case "solid-dark":
-      default:
-        return "bg-gradient-to-br from-gray-900 to-gray-700";
-    }
+    return (
+      backgroundOptions.find(opt => opt.value === formData.background)?.className ||
+      backgroundOptions[0].className
+    );
   };
 
   const getTextColor = () => {
