@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,9 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { CreditCard, Phone, Mail, MapPin, Star, Package, Truck, Shield, Image, Upload, ArrowLeft } from "lucide-react";
+import { CreditCard, Phone, Mail, MapPin, Star, Package, Truck, Shield, Image, Upload, ArrowLeft, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { toJpeg } from "html-to-image";
 
 const Order = () => {
   const navigate = useNavigate();
@@ -28,6 +29,30 @@ const Order = () => {
     customBackground: "",
     logo: ""
   });
+
+  // Ref for downloading preview
+  const previewRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPreview = async () => {
+    if (!previewRef.current) return;
+    try {
+      const dataUrl = await toJpeg(previewRef.current, { quality: 0.98, backgroundColor: "#fff" });
+      const link = document.createElement("a");
+      link.download = "kartu-nama-preview.jpg";
+      link.href = dataUrl;
+      link.click();
+      toast({
+        title: "Preview berhasil diunduh!",
+        description: "Gambar preview kartu nama telah disimpan ke perangkat Anda.",
+      });
+    } catch (err) {
+      toast({
+        title: "Gagal mengunduh preview.",
+        description: "Terjadi kesalahan saat membuat gambar. Coba lagi atau ganti browser.",
+        variant: "destructive"
+      });
+    }
+  };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -87,7 +112,6 @@ const Order = () => {
     if (formData.background === "custom" && formData.customBackground) {
       return `bg-cover bg-center bg-no-repeat`;
     }
-    
     switch (formData.background) {
       case "gradient-blue":
         return "bg-gradient-to-br from-blue-600 to-blue-800";
@@ -176,82 +200,95 @@ const Order = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-          {/* Preview Card */}
+          {/* Preview Card with Download Option */}
           <div className="space-y-6">
-            <div className="text-center lg:text-left">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Preview Kartu Nama Anda
-              </h2>
-              <p className="text-gray-600">
-                Lihat tampilan kartu nama Anda secara real-time
-              </p>
-            </div>
-            
-            <Card 
-              className={`${getCardBackground()} ${getTextColor()} p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300 relative overflow-hidden`}
-              style={formData.background === "custom" && formData.customBackground ? {
-                backgroundImage: `url(${formData.customBackground})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              } : {}}
-            >
-              {/* Custom background overlay for better text readability */}
-              {formData.background === "custom" && formData.customBackground && (
-                <div className="absolute inset-0 bg-black/40 z-0"></div>
-              )}
-              
-              {formData.background === "geometric" && (
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-4 right-4 w-20 h-20 border border-white/30 rotate-45"></div>
-                  <div className="absolute bottom-4 left-4 w-16 h-16 border border-white/30 rotate-12"></div>
-                  <div className="absolute top-1/2 left-1/3 w-12 h-12 border border-white/30 -rotate-45"></div>
+            <div className="flex flex-col items-center lg:items-start gap-2">
+              <div className="flex w-full items-center justify-between">
+                <div className="text-center lg:text-left">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                    Preview Kartu Nama Anda
+                  </h2>
+                  <p className="text-gray-600 mb-0">
+                    Lihat tampilan kartu nama Anda secara real-time
+                  </p>
                 </div>
-              )}
-              
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-2xl font-bold">
-                      {formData.nama || "Nama Anda"}
-                    </h3>
-                    <p className={`${getAccentColor()} font-medium`}>
-                      {formData.jabatan || "Jabatan Anda"}
-                    </p>
-                    <p className="text-sm mt-1 opacity-80">
-                      {formData.perusahaan || "Nama Perusahaan"}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {formData.logo && (
-                      <img 
-                        src={formData.logo} 
-                        alt="Logo" 
-                        className="w-12 h-12 object-contain rounded"
-                      />
-                    )}
-                    <CreditCard className={`w-8 h-8 ${getAccentColor()}`} />
-                  </div>
-                </div>
-                
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Phone className={`w-4 h-4 ${getAccentColor()}`} />
-                    <span>{formData.telepon || "+62 xxx-xxxx-xxxx"}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className={`w-4 h-4 ${getAccentColor()}`} />
-                    <span>{formData.email || "email@perusahaan.com"}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className={`w-4 h-4 ${getAccentColor()}`} />
-                    <span className="text-xs leading-relaxed">
-                      {formData.alamat || "Alamat Perusahaan"}
-                    </span>
-                  </div>
-                </div>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={handleDownloadPreview}
+                  className="flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" /> Unduh JPG
+                </Button>
               </div>
-            </Card>
+            </div>
+            <div ref={previewRef}>
+              <Card 
+                className={`${getCardBackground()} ${getTextColor()} p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300 relative overflow-hidden`}
+                style={formData.background === "custom" && formData.customBackground ? {
+                  backgroundImage: `url(${formData.customBackground})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                } : {}}
+              >
+                {/* Custom background overlay for better text readability */}
+                {formData.background === "custom" && formData.customBackground && (
+                  <div className="absolute inset-0 bg-black/40 z-0"></div>
+                )}
+                
+                {formData.background === "geometric" && (
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-4 right-4 w-20 h-20 border border-white/30 rotate-45"></div>
+                    <div className="absolute bottom-4 left-4 w-16 h-16 border border-white/30 rotate-12"></div>
+                    <div className="absolute top-1/2 left-1/3 w-12 h-12 border border-white/30 -rotate-45"></div>
+                  </div>
+                )}
+                
+                <div className="space-y-4 relative z-10">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="text-2xl font-bold">
+                        {formData.nama || "Nama Anda"}
+                      </h3>
+                      <p className={`${getAccentColor()} font-medium`}>
+                        {formData.jabatan || "Jabatan Anda"}
+                      </p>
+                      <p className="text-sm mt-1 opacity-80">
+                        {formData.perusahaan || "Nama Perusahaan"}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {formData.logo && (
+                        <img 
+                          src={formData.logo} 
+                          alt="Logo" 
+                          className="w-12 h-12 object-contain rounded"
+                        />
+                      )}
+                      <CreditCard className={`w-8 h-8 ${getAccentColor()}`} />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Phone className={`w-4 h-4 ${getAccentColor()}`} />
+                      <span>{formData.telepon || "+62 xxx-xxxx-xxxx"}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Mail className={`w-4 h-4 ${getAccentColor()}`} />
+                      <span>{formData.email || "email@perusahaan.com"}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className={`w-4 h-4 ${getAccentColor()}`} />
+                      <span className="text-xs leading-relaxed">
+                        {formData.alamat || "Alamat Perusahaan"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
 
             {/* Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
