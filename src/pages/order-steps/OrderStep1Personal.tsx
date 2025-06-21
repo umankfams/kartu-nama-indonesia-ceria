@@ -36,15 +36,26 @@ const OrderStep1Personal = ({ formData, handleInputChange }: StepProps) => (
         />
       </div>
     </div>
-    <div className="space-y-2">
-      <Label htmlFor="perusahaan">Nama Perusahaan *</Label>
-      <Input
-        id="perusahaan"
-        placeholder="PT. Nama Perusahaan"
-        value={formData.perusahaan}
-        onChange={(e) => handleInputChange("perusahaan", e.target.value)}
-        required
-      />
+    <div>
+        <div className="space-y-2">
+          <Label htmlFor="perusahaan">Nama Perusahaan *</Label>
+          <Input
+            id="perusahaan"
+            placeholder="PT. Nama Perusahaan"
+            value={formData.perusahaan}
+            onChange={(e) => handleInputChange("perusahaan", e.target.value)}
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="website">Website (Opsional)</Label>
+          <Input
+            id="website"
+            placeholder="www.perusahaan.com"
+            value={formData.website}
+            onChange={(e) => handleInputChange("website", e.target.value)}
+          />
+        </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="space-y-2">
@@ -79,15 +90,7 @@ const OrderStep1Personal = ({ formData, handleInputChange }: StepProps) => (
         className="min-h-[80px]"
       />
     </div>
-    <div className="space-y-2">
-      <Label htmlFor="website">Website (Opsional)</Label>
-      <Input
-        id="website"
-        placeholder="www.perusahaan.com"
-        value={formData.website}
-        onChange={(e) => handleInputChange("website", e.target.value)}
-      />
-    </div>
+    
   </div>
 );
 export default OrderStep1Personal;
