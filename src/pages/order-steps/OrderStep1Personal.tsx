@@ -36,7 +36,7 @@ const OrderStep1Personal = ({ formData, handleInputChange }: StepProps) => (
         />
       </div>
     </div>
-    <div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="perusahaan">Nama Perusahaan *</Label>
           <Input
