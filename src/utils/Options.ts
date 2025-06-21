@@ -37,6 +37,17 @@ const backgroundOptions = [
     className: "bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200 text-gray-800"
   },
   {
+    value: "texture-zigzag",
+    label: "Tekstur Zigzag",
+    description: "Tekstur kertas alami",
+    className: "background-color: #e5e5f7;
+opacity: 0.8;
+background-image:  linear-gradient(135deg, #444cf7 25%, transparent 25%), linear-gradient(225deg, #444cf7 25%, transparent 25%), linear-gradient(45deg, #444cf7 25%, transparent 25%), linear-gradient(315deg, #444cf7 25%, #e5e5f7 25%);
+background-position:  10px 0, 10px 0, 0 0, 0 0;
+background-size: 20px 20px;
+background-repeat: repeat;"
+  },
+  {
     value: "custom",
     label: "Upload Gambar",
     description: "Gunakan gambar sendiri",
