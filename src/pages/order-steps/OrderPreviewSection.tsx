@@ -2,7 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import DraggableOrderCardPreview from "./DraggableOrderCardPreview";
 
-type ElementPositions = Record<string, { x: number; y: number }>;
+type Position = { x: number; y: number };
+type ElementPositions = {
+  name: Position;
+  jabatan: Position;
+  perusahaan: Position;
+  logo: Position;
+  telepon: Position;
+  email: Position;
+  alamat: Position;
+};
 
 type Props = {
   formData: any;
