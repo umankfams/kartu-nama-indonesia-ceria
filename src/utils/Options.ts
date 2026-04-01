@@ -39,13 +39,16 @@ const backgroundOptions = [
   {
     value: "texture-zigzag",
     label: "Tekstur Zigzag",
-    description: "Tekstur kertas alami",
-    className: "background-color: #e5e5f7;
-opacity: 0.8;
-background-image:  linear-gradient(135deg, #444cf7 25%, transparent 25%), linear-gradient(225deg, #444cf7 25%, transparent 25%), linear-gradient(45deg, #444cf7 25%, transparent 25%), linear-gradient(315deg, #444cf7 25%, #e5e5f7 25%);
-background-position:  10px 0, 10px 0, 0 0, 0 0;
-background-size: 20px 20px;
-background-repeat: repeat;"
+    description: "Tekstur zigzag modern",
+    className: "bg-indigo-100",
+    style: {
+      backgroundColor: "#e5e5f7",
+      opacity: 0.8,
+      backgroundImage: "linear-gradient(135deg, #444cf7 25%, transparent 25%), linear-gradient(225deg, #444cf7 25%, transparent 25%), linear-gradient(45deg, #444cf7 25%, transparent 25%), linear-gradient(315deg, #444cf7 25%, #e5e5f7 25%)",
+      backgroundPosition: "10px 0, 10px 0, 0 0, 0 0",
+      backgroundSize: "20px 20px",
+      backgroundRepeat: "repeat",
+    }
   },
   {
     value: "custom",
