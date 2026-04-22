@@ -151,6 +151,7 @@ const Order = () => {
             elementPositions={elementPositions}
             onUpdatePositions={handleUpdatePositions}
             getCardBackground={getCardBackground}
+            getCardStyle={getCardStyle}
             getTextColor={getTextColor}
             getAccentColor={getAccentColor}
             previewRef={previewRef}
@@ -166,6 +167,7 @@ const Order = () => {
             handleInputChange={handleInputChange}
             handleImageUpload={handleImageUpload}
             onSubmit={handleSubmit}
+            backgroundOptions={allBackgroundOptions}
           />
         </div>
       </div>
