@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import Order from "./pages/Order";
 import NotFound from "./pages/NotFound";
 import ManageBackgrounds from "./pages/ManageBackgrounds";
+import TemplateEditor from "./pages/TemplateEditor";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/order" element={<Order />} />
           {/* Page for managing card backgrounds */}
           <Route path="/manage-backgrounds" element={<ManageBackgrounds />} />
+          <Route path="/template-editor" element={<TemplateEditor />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
