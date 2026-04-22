@@ -188,7 +188,7 @@ const Landing = () => {
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold text-lg px-8 py-4"
+                  className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold text-lg px-8 py-4 opacity-100"
                 >
                   Lihat Contoh
                 </Button>
