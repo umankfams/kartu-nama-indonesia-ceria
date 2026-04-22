@@ -18,6 +18,7 @@ type Props = {
   elementPositions: ElementPositions;
   onUpdatePositions: (pos: ElementPositions) => void;
   getCardBackground: () => string;
+  getCardStyle: () => React.CSSProperties;
   getTextColor: () => string;
   getAccentColor: () => string;
   previewRef: React.RefObject<HTMLDivElement>;
@@ -31,6 +32,7 @@ const OrderPreviewSection = ({
   elementPositions,
   onUpdatePositions,
   getCardBackground,
+  getCardStyle,
   getTextColor,
   getAccentColor,
   previewRef,
@@ -69,6 +71,7 @@ const OrderPreviewSection = ({
       elementPositions={elementPositions}
       onUpdatePositions={onUpdatePositions}
       getCardBackground={getCardBackground}
+      getCardStyle={getCardStyle}
       getTextColor={getTextColor}
       getAccentColor={getAccentColor}
       previewRef={previewRef}

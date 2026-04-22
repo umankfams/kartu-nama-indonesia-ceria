@@ -9,7 +9,7 @@ import OrderStep4Shipping from "./OrderStep4Shipping";
 import OrderStep5Payment from "./OrderStep5Payment";
 
 import {
-  backgroundOptions,
+  backgroundOptions as defaultBackgroundOptions,
   bahanOptions,
   finishingOptions,
   jumlahOptions,
@@ -22,6 +22,7 @@ type Props = {
   handleInputChange: (field: string, value: string) => void;
   handleImageUpload: (field: string, file: File) => void;
   onSubmit: (e: React.FormEvent) => void;
+  backgroundOptions?: any[];
 };
 
 const TOTAL_STEPS = 5;
@@ -33,6 +34,7 @@ const OrderFormSection = ({
   handleInputChange,
   handleImageUpload,
   onSubmit,
+  backgroundOptions = defaultBackgroundOptions,
 }: Props) => {
   const stepComponents = [
     <OrderStep1Personal key="step1" formData={formData} handleInputChange={handleInputChange} />,
