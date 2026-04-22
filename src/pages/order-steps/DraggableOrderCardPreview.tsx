@@ -21,6 +21,7 @@ type DraggableOrderCardPreviewProps = {
   elementPositions: ElementPositions;
   onUpdatePositions: (positions: ElementPositions) => void;
   getCardBackground: () => string;
+  getCardStyle?: () => React.CSSProperties;
   getTextColor: () => string;
   getAccentColor: () => string;
   previewRef: React.RefObject<HTMLDivElement>;
@@ -35,6 +36,7 @@ const DraggableOrderCardPreview = ({
   elementPositions,
   onUpdatePositions,
   getCardBackground,
+  getCardStyle,
   getTextColor,
   getAccentColor,
   previewRef,
@@ -65,9 +67,9 @@ const DraggableOrderCardPreview = ({
                   backgroundImage: `url(${formData.customBackground})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat"
+                  backgroundRepeat: "no-repeat",
                 }
-              : {}
+              : getCardStyle?.() ?? {}
           }
         />
         {/* Overlay for readability if custom bg */}
