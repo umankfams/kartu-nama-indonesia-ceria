@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { toJpeg } from "html-to-image";
 import { backgroundOptions } from "@/utils/Options";
+import { useBackgroundTemplates, isTemplateValue } from "@/hooks/useBackgroundTemplates";
 
 import OrderHeader from "./order-steps/OrderHeader";
 import OrderProgressBar from "./order-steps/OrderProgressBar";
@@ -51,6 +52,9 @@ const Order = () => {
     paymentOption: "",
     elementPositions: { ...DEFAULT_ELEMENT_POSITIONS },
   });
+
+  const { templates: dbTemplates } = useBackgroundTemplates();
+  const allBackgroundOptions = [...backgroundOptions, ...dbTemplates];
 
   const [currentStep, setCurrentStep] = useState(0);
   const [editLayout, setEditLayout] = useState(false);
@@ -106,9 +110,23 @@ const Order = () => {
     console.log("Form submitted:", formData);
   };
 
+  const selectedOption = allBackgroundOptions.find((opt) => opt.value === formData.background);
+
   const getCardBackground = () =>
-    backgroundOptions.find((opt) => opt.value === formData.background)?.className ||
-    backgroundOptions[0].className;
+    selectedOption?.className ?? backgroundOptions[0].className;
+
+  const getCardStyle = (): React.CSSProperties => {
+    if (!selectedOption) return {};
+    if (isTemplateValue(formData.background) && "imageUrl" in selectedOption && selectedOption.imageUrl) {
+      return {
+        backgroundImage: `url(${selectedOption.imageUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      };
+    }
+    return (selectedOption as { style?: React.CSSProperties }).style ?? {};
+  };
 
   const getTextColor = () =>
     formData.background === "minimal-white" || formData.background === "texture-paper"
